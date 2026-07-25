@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 
 const DRIVE_URL =
   "https://drive.google.com/drive/folders/1u-XtJemkdn6Kwp-tBRKtI2rDOD5LRItQ?usp=sharing";
@@ -48,7 +48,7 @@ export default function PhotoUpload() {
             />
           </div>
           <p className="mt-4 inline-flex items-center gap-2 font-body text-sm font-semibold uppercase tracking-widest text-gold-dark">
-            <PetalIcon className="h-4 w-4 text-petal-rose" />
+            <SparkleIcon className="h-4 w-4 text-gold" />
             {t("photos.instruction")}
           </p>
         </a>

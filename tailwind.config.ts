@@ -25,8 +25,8 @@ export default {
           dark: "#F3E9D9",
         },
         felt: {
-          DEFAULT: "#FDF4EE",
-          dark: "#F6E1DD",
+          DEFAULT: "#FFFFFF",
+          dark: "#F5F3EE",
           light: "#FFFFFF",
         },
         petal: {
@@ -75,6 +75,13 @@ export default {
           "0%, 100%": { transform: "translateX(0)" },
           "50%": { transform: "translateX(24px)" },
         },
+        sparkleFall: {
+          "0%": { transform: "translateY(-10vh) scale(0.5) rotate(0deg)", opacity: "0" },
+          "12%": { opacity: "1" },
+          "50%": { transform: "translateY(50vh) scale(1.15) rotate(180deg)", opacity: "0.6" },
+          "88%": { opacity: "1" },
+          "100%": { transform: "translateY(110vh) scale(0.5) rotate(360deg)", opacity: "0" },
+        },
       },
       animation: {
         float: "float 6s ease-in-out infinite",
@@ -83,6 +90,7 @@ export default {
         pulseGold: "pulseGold 3s ease-in-out infinite",
         petalFall: "petalFall 10s linear infinite",
         petalSway: "petalSway 3.5s ease-in-out infinite",
+        sparkleFall: "sparkleFall 9s linear infinite",
       },
     },
   },

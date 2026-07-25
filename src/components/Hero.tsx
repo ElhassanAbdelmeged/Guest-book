@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import CountdownTimer from "./CountdownTimer";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 
 const assetsBase = `${import.meta.env.BASE_URL}assets/images/`;
 // A single shared childhood photo of both Mohamed and Nashwa together.
@@ -32,16 +32,16 @@ export default function Hero() {
         transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.3 }}
         className="relative z-10"
       >
-        <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-petal-pink/30 via-gold/20 to-petal-lavender/30 blur-md" />
-        <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-gold/60 shadow-card sm:h-60 sm:w-60 md:h-64 md:w-64">
+        <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-gold/25 via-gold-light/20 to-gold/25 blur-md" />
+        <div className="relative aspect-[1086/1448] w-48 overflow-hidden rounded-[1.75rem] border-4 border-gold/60 bg-cream shadow-card sm:w-64 md:w-72">
           <img
             src={coupleBabyPhoto}
             alt={`${t("hero.groom")} & ${t("hero.bride")}`}
             className="h-full w-full object-cover"
           />
         </div>
-        <span className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center rounded-full bg-cream text-cardred shadow-card sm:h-11 sm:w-11">
-          <PetalIcon className="h-6 w-6 sm:h-7 sm:w-7" />
+        <span className="absolute -bottom-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full bg-cream text-gold-dark shadow-card sm:h-12 sm:w-12">
+          <SparkleIcon className="h-6 w-6 sm:h-7 sm:w-7" />
         </span>
       </motion.div>
 

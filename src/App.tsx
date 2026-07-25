@@ -9,14 +9,14 @@ import BackgroundMusic, {
   type BackgroundMusicHandle,
 } from "./components/BackgroundMusic";
 import EntryOverlay from "./components/EntryOverlay";
-import FallingPetals from "./components/FallingPetals";
+import FallingSparkles from "./components/FallingSparkles";
 
 export default function App() {
   const musicRef = useRef<BackgroundMusicHandle>(null);
 
   return (
     <div className="min-h-screen bg-felt">
-      <FallingPetals count={20} />
+      <FallingSparkles count={20} />
       <EntryOverlay onEnter={() => musicRef.current?.play()} />
       <BackgroundMusic ref={musicRef} />
       <Navbar />

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -9,7 +9,7 @@ export default function Footer() {
       {/* Decorative top border */}
       <div className="mx-auto mb-8 flex max-w-xs items-center justify-center gap-3 text-gold/60">
         <span className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/50" />
-        <PetalIcon className="h-4 w-4 text-petal-rose" />
+        <SparkleIcon className="h-4 w-4 text-gold" />
         <span className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/50" />
       </div>
 
@@ -22,7 +22,7 @@ export default function Footer() {
 
       <p className="mt-6 inline-flex items-center gap-1.5 font-body text-xs text-cream/50">
         {t("footer.madeWith")}
-        <PetalIcon className="h-3.5 w-3.5 text-petal-rose" />
+        <SparkleIcon className="h-3.5 w-3.5 text-gold" />
       </p>
     </footer>
   );

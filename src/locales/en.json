@@ -33,15 +33,17 @@
   "details": {
     "title": "Wedding Details",
     "subtitle": "You are cordially invited to celebrate our love",
-    "when": "When",
-    "where": "Where",
     "mapButton": "Open in Google Maps",
     "event1": {
+      "label": "Henna Night",
+      "note": "A small evening for the groom's close friends & family",
       "title": "حنة عند بيت العريس",
       "date": "Tuesday, August 11, 2026",
       "location": "At the Groom's Family Home"
     },
     "event2": {
+      "label": "The Wedding",
+      "note": "The main celebration for all our family & friends",
       "title": "فرح في القاعة",
       "date": "Thursday, August 13, 2026",
       "location": "Arabia Gardens, Ismailia",

@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 
 const coupleBabyPhoto = `${import.meta.env.BASE_URL}assets/images/mohamed-nashwa-baby.png`;
+// Optional short intro clip that plays softly on the splash screen, before
+// the visitor taps "Tap to Enter" (which then starts the main wedding song).
+// Drop a file named `intro-song.mp3` into the `public` folder to enable it —
+// until then this 404s silently and the splash is just silent, no error shown.
+const INTRO_SONG_URL = `${import.meta.env.BASE_URL}intro-song.mp3`;
 
 /**
  * Full-screen entry splash. Tapping anywhere starts the background music
@@ -12,6 +17,7 @@ const coupleBabyPhoto = `${import.meta.env.BASE_URL}assets/images/mohamed-nashwa
 export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(true);
+  const introAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     document.body.style.overflow = visible ? "hidden" : "";
@@ -20,7 +26,33 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
     };
   }, [visible]);
 
+  useEffect(() => {
+    const audio = introAudioRef.current;
+    if (!audio) return;
+    audio.volume = 0.35;
+    // Browsers always allow autoplay when muted — start muted immediately,
+    // then unmute on the visitor's first touch/pointer movement so it plays
+    // with sound as soon as possible without violating autoplay rules.
+    audio.muted = true;
+    audio.play().catch(() => {});
+
+    const unmute = () => {
+      audio.muted = false;
+    };
+    window.addEventListener("pointermove", unmute, { once: true });
+    window.addEventListener("touchstart", unmute, { once: true });
+
+    return () => {
+      window.removeEventListener("pointermove", unmute);
+      window.removeEventListener("touchstart", unmute);
+    };
+  }, []);
+
   const handleEnter = () => {
+    const introAudio = introAudioRef.current;
+    if (introAudio) {
+      introAudio.pause();
+    }
     onEnter();
     setVisible(false);
   };
@@ -38,6 +70,7 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
           aria-label={t("entry.enter")}
           className="felt-bg fixed inset-0 z-[100] flex cursor-pointer flex-col items-center justify-center overflow-hidden px-6 text-center"
         >
+          <audio ref={introAudioRef} src={INTRO_SONG_URL} loop preload="auto" />
           {/* Couple photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: -20 }}
@@ -45,8 +78,8 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
             transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.15 }}
             className="relative mb-8"
           >
-            <div className="absolute -inset-3 rounded-full bg-gradient-to-br from-petal-pink/30 via-gold/20 to-petal-lavender/30 blur-md" />
-            <div className="relative h-32 w-32 overflow-hidden rounded-full border-4 border-gold/60 shadow-card sm:h-44 sm:w-44">
+            <div className="absolute -inset-2 rounded-[1.5rem] bg-gradient-to-br from-gold/25 via-gold-light/20 to-gold/25 blur-md" />
+            <div className="relative aspect-[1086/1448] w-32 overflow-hidden rounded-2xl border-4 border-gold/60 bg-cream shadow-card sm:w-40">
               <img
                 src={coupleBabyPhoto}
                 alt={t("footer.names")}
@@ -89,7 +122,7 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
             className="mt-10 flex flex-col items-center gap-3"
           >
             <span className="inline-flex animate-pulseGold items-center gap-2 rounded-full bg-cardred px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card">
-              <PetalIcon className="h-4 w-4" />
+              <SparkleIcon className="h-4 w-4" />
               {t("entry.enter")}
             </span>
             <span className="inline-flex items-center gap-1.5 font-body text-[11px] text-ink/50">

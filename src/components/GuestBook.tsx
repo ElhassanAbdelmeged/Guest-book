@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import HTMLFlipBook from "react-pageflip";
 import { motion } from "framer-motion";
 import BookPage from "./BookPage";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 import { useMessages } from "../hooks/useMessages";
 import type { GuestMessage } from "../lib/supabase";
 
@@ -93,8 +93,8 @@ export default function GuestBook() {
             className="relative rounded-2xl border-2 border-gold/50 bg-ink/70 p-6 shadow-card backdrop-blur-sm sm:p-8"
           >
             <div className="mb-5 flex items-center gap-2">
-              <span className="text-petal-rose">
-                <PetalIcon className="h-6 w-6" />
+              <span className="text-gold">
+                <SparkleIcon className="h-6 w-6" />
               </span>
               <h3 className="font-display text-xl font-bold text-cream">
                 {t("guestbook.formTitle")}
@@ -124,7 +124,7 @@ export default function GuestBook() {
                 disabled={status === "submitting" || !isConfigured}
                 className="group flex w-full items-center justify-center gap-2 rounded-lg bg-cardred px-6 py-3 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card transition hover:bg-cardred-dark disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <PetalIcon className="h-4 w-4 transition group-hover:scale-125" />
+                <SparkleIcon className="h-4 w-4 transition group-hover:scale-125" />
                 {status === "submitting"
                   ? t("guestbook.submitting")
                   : t("guestbook.submit")}
@@ -174,7 +174,7 @@ export default function GuestBook() {
               </div>
             ) : pages.length === 0 ? (
               <div className="flex h-[460px] w-full max-w-sm flex-col items-center justify-center rounded-2xl border-2 border-gold/50 bg-cream/95 p-8 text-center text-ink shadow-card">
-                <PetalIcon className="h-10 w-10 text-petal-rose" />
+                <SparkleIcon className="h-10 w-10 text-gold" />
                 <p className="mt-4 font-display text-lg font-semibold">
                   {t("guestbook.empty")}
                 </p>
@@ -212,8 +212,8 @@ export default function GuestBook() {
                   {/* Cover */}
                   <BookPage className="!bg-ink">
                     <div className="flex h-full flex-col items-center justify-center text-center text-cream">
-                      <div className="mb-4 flex gap-2 text-petal-rose">
-                        <PetalIcon className="h-6 w-6" />
+                      <div className="mb-4 flex gap-2 text-gold">
+                        <SparkleIcon className="h-6 w-6" />
                       </div>
                       <h3 className="py-2 font-script text-4xl leading-relaxed text-gold-shimmer sm:text-5xl">
                         {t("guestbook.bookTitle")}
@@ -232,8 +232,8 @@ export default function GuestBook() {
                     return (
                       <BookPage key={m.id}>
                         <div className="flex h-full flex-col">
-                          <div className="flex items-center justify-between text-petal-rose">
-                            <PetalIcon className="h-6 w-6" />
+                          <div className="flex items-center justify-between text-gold">
+                            <SparkleIcon className="h-6 w-6" />
                             <span className="font-body text-[11px] uppercase tracking-widest text-ink/40">
                               {t("guestbook.page")} {idx + 1}
                             </span>
@@ -264,7 +264,7 @@ export default function GuestBook() {
                   {/* The End */}
                   <BookPage className="!bg-ink">
                     <div className="flex h-full flex-col items-center justify-center text-center text-cream">
-                      <PetalIcon className="h-10 w-10 text-petal-rose" />
+                      <SparkleIcon className="h-10 w-10 text-gold" />
                       <h3 className="mt-4 py-2 font-script text-3xl leading-relaxed text-gold-shimmer">
                         {t("guestbook.theEnd")}
                       </h3>

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import PetalIcon from "./PetalIcon";
+import SparkleIcon from "./SparkleIcon";
 
 const MAPS_URL = "https://maps.app.goo.gl/qqZu89CNhNkm3Piq8?g_st=ic";
 
@@ -8,18 +8,30 @@ function Divider() {
   return (
     <div className="my-6 flex items-center justify-center gap-3 text-gold/70">
       <span className="h-px w-16 bg-gradient-to-r from-transparent to-gold/60" />
-      <PetalIcon className="h-4 w-4 text-petal-rose" />
+      <SparkleIcon className="h-4 w-4 text-gold" />
       <span className="h-px w-16 bg-gradient-to-l from-transparent to-gold/60" />
     </div>
   );
 }
 
-function CalendarIcon({ className = "" }: { className?: string }) {
+/** A henna cone with a few dye drops — represents the small henna-night gathering. */
+function HennaIcon({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="3.5" y="5" width="17" height="16" rx="2.5" />
-      <path d="M3.5 9.5h17" strokeLinecap="round" />
-      <path d="M8 3v4M16 3v4" strokeLinecap="round" />
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.7">
+      <path d="M12 3c3 3.2 5 6.8 5 9.6a5 5 0 0 1-10 0C7 9.8 9 6.2 12 3z" />
+      <circle cx="12" cy="16.5" r="0.7" fill="currentColor" stroke="none" />
+      <circle cx="9.7" cy="18.3" r="0.55" fill="currentColor" stroke="none" />
+      <circle cx="14.3" cy="18.3" r="0.55" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+/** Two interlocking rings — represents the main wedding ceremony. */
+function RingsIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.7">
+      <circle cx="9" cy="14" r="5.2" />
+      <circle cx="15" cy="14" r="5.2" />
     </svg>
   );
 }
@@ -59,13 +71,13 @@ export default function WeddingDetails() {
 
           {/* Two events */}
           <div className="grid gap-8 sm:grid-cols-2">
-            {/* Event 1: Henna */}
+            {/* Event 1: Henna — small gathering for the groom's friends */}
             <div className="flex flex-col items-center">
               <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold/60 text-cardred">
-                <CalendarIcon className="h-6 w-6" />
+                <HennaIcon className="h-6 w-6" />
               </div>
               <h3 className="font-body text-xs font-bold uppercase tracking-[0.2em] text-gold-dark">
-                {t("details.when")}
+                {t("details.event1.label")}
               </h3>
               <p className="mt-2 font-arabic text-xl font-bold text-ink" dir="rtl">
                 {t("details.event1.title")}
@@ -76,15 +88,18 @@ export default function WeddingDetails() {
               <p className="mt-1 font-body text-sm text-ink/70">
                 {t("details.event1.location")}
               </p>
+              <p className="mt-2 max-w-[16rem] font-body text-xs text-ink/50">
+                {t("details.event1.note")}
+              </p>
             </div>
 
-            {/* Event 2: Wedding */}
+            {/* Event 2: Wedding — the main celebration */}
             <div className="flex flex-col items-center">
               <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-full border-2 border-gold/60 text-ink">
-                <PinIcon className="h-6 w-6" />
+                <RingsIcon className="h-6 w-6" />
               </div>
               <h3 className="font-body text-xs font-bold uppercase tracking-[0.2em] text-gold-dark">
-                {t("details.where")}
+                {t("details.event2.label")}
               </h3>
               <p className="mt-2 font-arabic text-xl font-bold text-ink" dir="rtl">
                 {t("details.event2.title")}
@@ -97,6 +112,9 @@ export default function WeddingDetails() {
               </p>
               <p className="mt-0.5 font-body text-sm text-ink/70">
                 {t("details.event2.time")}
+              </p>
+              <p className="mt-2 max-w-[16rem] font-body text-xs text-ink/50">
+                {t("details.event2.note")}
               </p>
             </div>
           </div>
