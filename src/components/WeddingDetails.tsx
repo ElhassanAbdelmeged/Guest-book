@@ -125,9 +125,9 @@ export default function WeddingDetails() {
             href={MAPS_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-cardred px-6 py-3 font-body text-sm font-semibold text-cream shadow-card transition hover:bg-cardred-dark hover:shadow-cardhover"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-gold bg-ink px-6 py-3 font-body text-sm font-semibold text-cream shadow-card transition hover:shadow-gold hover:border-gold-light"
           >
-            <PinIcon className="h-4 w-4" />
+            <PinIcon className="h-4 w-4 text-gold" />
             {t("details.mapButton")}
           </a>
         </div>

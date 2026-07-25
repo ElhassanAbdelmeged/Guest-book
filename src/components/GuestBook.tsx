@@ -122,9 +122,9 @@ export default function GuestBook() {
               <button
                 type="submit"
                 disabled={status === "submitting" || !isConfigured}
-                className="group flex w-full items-center justify-center gap-2 rounded-lg bg-cardred px-6 py-3 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card transition hover:bg-cardred-dark disabled:cursor-not-allowed disabled:opacity-50"
+                className="group flex w-full items-center justify-center gap-2 rounded-full border-2 border-gold bg-ink px-6 py-3 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card transition hover:shadow-gold hover:border-gold-light disabled:cursor-not-allowed disabled:opacity-50"
               >
-                <SparkleIcon className="h-4 w-4 transition group-hover:scale-125" />
+                <SparkleIcon className="h-4 w-4 text-gold transition group-hover:scale-125" />
                 {status === "submitting"
                   ? t("guestbook.submitting")
                   : t("guestbook.submit")}

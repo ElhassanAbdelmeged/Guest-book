@@ -58,7 +58,7 @@ export default function PhotoUpload() {
             href={DRIVE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full bg-cardred px-6 py-3 font-body text-sm font-semibold text-cream shadow-card transition hover:bg-cardred-dark hover:shadow-cardhover"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-gold bg-ink px-6 py-3 font-body text-sm font-semibold text-cream shadow-card transition hover:shadow-gold hover:border-gold-light"
           >
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
               <path d="M12 2l3 6 6 .5-4.5 4 1.5 6L12 15l-6 3.5 1.5-6L3 8.5 9 8z" />

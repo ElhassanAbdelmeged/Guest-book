@@ -15,18 +15,18 @@ export type BackgroundMusicHandle = {
 
 /**
  * Plays the wedding song softly on a loop in the background.
+ * - Never starts on its own — it only starts when `play()` is called (the
+ *   entry overlay calls it the moment the visitor taps "Tap to Enter"). This
+ *   is deliberate: the splash screen plays its own short intro clip first,
+ *   and this song should only take over once the visitor has entered the
+ *   site, not compete with the intro or autoplay before that.
  * - Low volume so it stays a subtle backdrop.
- * - Tries to start immediately; if the browser blocks autoplay (phones always
- *   do), it starts on the visitor's very first interaction anywhere on the page
- *   (a tap, scroll, or key press) - no need to find the speaker button.
  * - Pauses automatically when the tab is hidden and resumes when it's visible.
  * - The floating button reflects the real playing state, so a single tap always
  *   toggles correctly.
- * - Exposes an imperative `play()` so the entry overlay can start it on tap.
  */
 const BackgroundMusic = forwardRef<BackgroundMusicHandle>((_props, ref) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const wasPlayingRef = useRef(false);
 
@@ -44,8 +44,6 @@ const BackgroundMusic = forwardRef<BackgroundMusicHandle>((_props, ref) => {
     if (!audio) return;
     audio.volume = 0.18;
 
-    const tryPlay = () => audio.play().catch(() => {});
-
     const onPlay = () => {
       setIsPlaying(true);
       wasPlayingRef.current = true;
@@ -54,47 +52,11 @@ const BackgroundMusic = forwardRef<BackgroundMusicHandle>((_props, ref) => {
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
 
-    // Attempt right away (works on desktop and re-visits).
-    tryPlay();
-
-    // Fallback for mobile/blocked autoplay: start on the first interaction
-    // anywhere on the page. Ignore taps on the music button itself, which
-    // manages its own play/pause so it never fights this listener.
-    const interactionEvents = [
-      "pointerdown",
-      "touchstart",
-      "keydown",
-      "click",
-      "scroll",
-    ];
-    const onFirstInteract = (e: Event) => {
-      if (
-        buttonRef.current &&
-        e.target instanceof Node &&
-        buttonRef.current.contains(e.target)
-      ) {
-        return;
-      }
-      tryPlay();
-    };
-    interactionEvents.forEach((ev) =>
-      window.addEventListener(ev, onFirstInteract, { passive: true })
-    );
-
-    const removeInteractionListeners = () =>
-      interactionEvents.forEach((ev) =>
-        window.removeEventListener(ev, onFirstInteract)
-      );
-
-    // Once playback actually begins, we no longer need the fallback listeners.
-    const onFirstPlay = () => removeInteractionListeners();
-    audio.addEventListener("play", onFirstPlay, { once: true });
-
     const onVisibility = () => {
       if (document.hidden) {
         audio.pause();
       } else if (wasPlayingRef.current) {
-        tryPlay();
+        audio.play().catch(() => {});
       }
     };
     document.addEventListener("visibilitychange", onVisibility);
@@ -102,8 +64,6 @@ const BackgroundMusic = forwardRef<BackgroundMusicHandle>((_props, ref) => {
     return () => {
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
-      audio.removeEventListener("play", onFirstPlay);
-      removeInteractionListeners();
       document.removeEventListener("visibilitychange", onVisibility);
     };
   }, []);
@@ -122,9 +82,8 @@ const BackgroundMusic = forwardRef<BackgroundMusicHandle>((_props, ref) => {
 
   return (
     <>
-      <audio ref={audioRef} src={SONG_URL} loop preload="auto" autoPlay />
+      <audio ref={audioRef} src={SONG_URL} loop preload="auto" />
       <button
-        ref={buttonRef}
         onClick={toggle}
         aria-label={isPlaying ? "Mute music" : "Play music"}
         title={isPlaying ? "Mute music" : "Play music"}

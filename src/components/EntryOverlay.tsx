@@ -121,8 +121,8 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
             transition={{ delay: 1 }}
             className="mt-10 flex flex-col items-center gap-3"
           >
-            <span className="inline-flex animate-pulseGold items-center gap-2 rounded-full bg-cardred px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card">
-              <SparkleIcon className="h-4 w-4" />
+            <span className="inline-flex animate-pulseGold items-center gap-2 rounded-full border-2 border-gold bg-ink px-8 py-3.5 font-body text-sm font-bold uppercase tracking-widest text-cream shadow-card">
+              <SparkleIcon className="h-4 w-4 text-gold" />
               {t("entry.enter")}
             </span>
             <span className="inline-flex items-center gap-1.5 font-body text-[11px] text-ink/50">
