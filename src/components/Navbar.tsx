@@ -10,7 +10,7 @@ const sections = [
 ] as const;
 
 export default function Navbar() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -20,6 +20,10 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const toggleLang = () => {
+    i18n.changeLanguage(i18n.language === "ar" ? "en" : "ar");
+  };
 
   const scrollTo = (id: string) => {
     setMenuOpen(false);
@@ -65,6 +69,13 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <button
+            onClick={toggleLang}
+            className="rounded-full border border-gold/60 px-3 py-1.5 font-body text-xs font-semibold text-gold-dark transition hover:bg-gold hover:text-ink sm:text-sm"
+          >
+            {t("nav.langToggle")}
+          </button>
+
           {/* Mobile menu button */}
           <button
             onClick={() => setMenuOpen((v) => !v)}

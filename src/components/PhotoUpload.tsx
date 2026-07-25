@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import SuitIcon from "./SuitIcon";
+import PetalIcon from "./PetalIcon";
 
 const DRIVE_URL =
   "https://drive.google.com/drive/folders/1u-XtJemkdn6Kwp-tBRKtI2rDOD5LRItQ?usp=sharing";
@@ -41,14 +41,6 @@ export default function PhotoUpload() {
           className="group mx-auto mt-10 block w-fit"
         >
           <div className="relative rounded-3xl border-2 border-gold/60 bg-cream p-5 shadow-card transition duration-300 group-hover:-translate-y-1 group-hover:shadow-cardhover animate-pulseGold sm:p-6">
-            {/* Corner pips */}
-            <div className="card-corner left-3 top-3 text-cardred">
-              <SuitIcon suit="heart" className="h-4 w-4" />
-            </div>
-            <div className="card-corner bottom-3 right-3 rotate-180 text-cardred">
-              <SuitIcon suit="heart" className="h-4 w-4" />
-            </div>
-
             <img
               src={qrSrc}
               alt="Scan to upload your wedding photos"
@@ -56,7 +48,7 @@ export default function PhotoUpload() {
             />
           </div>
           <p className="mt-4 inline-flex items-center gap-2 font-body text-sm font-semibold uppercase tracking-widest text-gold-dark">
-            <SuitIcon suit="diamond" className="h-4 w-4 text-cardred" />
+            <PetalIcon className="h-4 w-4 text-petal-rose" />
             {t("photos.instruction")}
           </p>
         </a>
