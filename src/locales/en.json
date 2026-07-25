@@ -9,6 +9,7 @@
   "entry": {
     "kicker": "You're Invited",
     "enter": "Tap to Enter",
+    "entering": "Entering...",
     "withSound": "Best experienced with sound on"
   },
   "hero": {

@@ -4,16 +4,18 @@ import { useTranslation } from "react-i18next";
 import SparkleIcon from "./SparkleIcon";
 
 const coupleBabyPhoto = `${import.meta.env.BASE_URL}assets/images/mohamed-nashwa-baby.png`;
-// Short intro clip that plays on the splash screen, before the visitor taps
-// "Tap to Enter" (which then switches to the main wedding song). Drop a file
-// named `intro-song.mp3` into the `public` folder to enable it — until then
-// this 404s silently and the splash is just silent, no error shown.
+// Intro clip that plays as soon as the splash loads. Drop a file named
+// `intro-song.mp3` into the `public` folder to enable it — until then this
+// 404s silently. Note: browsers block audio-with-sound until the visitor has
+// interacted with the page at least once, so on a first-ever visit this may
+// stay silent until the tap — that's a browser rule, not something a site
+// can override. It plays immediately whenever the browser allows it to.
 const INTRO_SONG_URL = `${import.meta.env.BASE_URL}intro-song.mp3`;
 
 /**
- * Full-screen entry splash. Only the "Tap to Enter" button advances past it
- * — the rest of the splash is not clickable, so the intro song actually gets
- * a chance to play instead of being cut off by the very first tap.
+ * Full-screen entry splash. The intro clip attempts to play the moment this
+ * mounts. Tapping "Tap to Enter" stops the intro and switches to the main
+ * wedding song as the site reveals.
  */
 export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
   const { t } = useTranslation();
@@ -31,35 +33,10 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
     const audio = introAudioRef.current;
     if (!audio) return;
     audio.volume = 0.35;
-
-    const tryPlay = () => audio.play().catch(() => {});
-
-    // Try to start right away. This succeeds on browsers/returning visitors
-    // that already allow autoplay with sound for this site.
-    tryPlay();
-
-    // If that was blocked, start on the visitor's very first interaction
-    // anywhere on the page (not just the enter button) — a mouse move, a
-    // scroll, a stray tap. This gives the intro a real chance to be heard
-    // before "Tap to Enter" is pressed.
-    const fallbackEvents = ["pointerdown", "pointermove", "touchstart", "keydown", "scroll"];
-    const onFirstInteract = () => tryPlay();
-    fallbackEvents.forEach((ev) =>
-      window.addEventListener(ev, onFirstInteract, { passive: true })
-    );
-
-    const removeFallback = () =>
-      fallbackEvents.forEach((ev) => window.removeEventListener(ev, onFirstInteract));
-
-    audio.addEventListener("play", removeFallback, { once: true });
-
-    return () => {
-      removeFallback();
-      audio.removeEventListener("play", removeFallback);
-    };
+    audio.play().catch(() => {});
   }, []);
 
-  const handleEnter = () => {
+  const handleTap = () => {
     const introAudio = introAudioRef.current;
     if (introAudio) {
       introAudio.pause();
@@ -124,7 +101,7 @@ export default function EntryOverlay({ onEnter }: { onEnter: () => void }) {
 
           <motion.button
             type="button"
-            onClick={handleEnter}
+            onClick={handleTap}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1 }}
